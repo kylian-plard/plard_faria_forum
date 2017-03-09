@@ -1,6 +1,8 @@
 package com.plard_faria_forum.controleur;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +29,21 @@ public class HelloWorld extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.getWriter().append("\nHello world !");
+		response.setContentType("text/html");
+	    response.setCharacterEncoding( "UTF-8" );
+	    PrintWriter out = response.getWriter();
+	    out.println("<!DOCTYPE html>");
+	    out.println("<html>");
+	    out.println("<head>");
+	    out.println("<meta charset=\"utf-8\" />");
+	    out.println("<title>Hello</title>");
+	    out.println("</head>");
+	    out.println("<body>");
+	    out.println("<p>Ceci est une page générée depuis une servlet.</p>");
+	    out.append("Served at: ").append(request.getContextPath());
+	    out.println("<p>Hello world !</p>");
+	    out.println("</body>");
+	    out.println("</html>");
 	}
 
 	/**
