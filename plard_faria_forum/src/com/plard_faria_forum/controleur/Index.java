@@ -19,6 +19,11 @@ import com.plard_faria_forum.modele.User;
 
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String ATT_ERROR="error";
+	public static final String ATT_MESSAGE="msg";
+    public static final String ATT_BEAN	="u";
+    public static final String ATT_DATE	="date";
+    public static final String VUE		="/WEB-INF/index.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +39,6 @@ public class Index extends HttpServlet {
 		User u=new User();
 		u.setNom("Nom");
 		u.setPrenom("Prénom");
-		request.setAttribute("u", u);
 
         /* Récupération de la date courante */
         LocalDateTime dt=LocalDateTime.now();
@@ -42,11 +46,10 @@ public class Index extends HttpServlet {
         /* Conversion de la date en String selon le format défini */
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String date = dt.format(formatter).toString();
-        
-        // Envoi de la date
-        request.setAttribute("date", date);
 
-		this.getServletContext().getRequestDispatcher( "/WEB-INF/index.jsp" ).forward(request, response);
+        request.setAttribute(ATT_BEAN, u);
+        request.setAttribute(ATT_DATE, date);
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 	/**
@@ -63,9 +66,9 @@ public class Index extends HttpServlet {
 			msg="Vous devez renseigner tout les champs !";
 			error=true;
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("error", error);
 
+		request.setAttribute(ATT_MESSAGE, msg);
+		request.setAttribute(ATT_ERROR, error);
 		doGet(request, response);
 	}
 
