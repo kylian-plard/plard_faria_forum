@@ -21,36 +21,19 @@ public class Index extends HttpServlet {
      */
     public Index() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-	    response.setCharacterEncoding( "UTF-8" );
-	    PrintWriter out = response.getWriter();
-	    out.println("<!DOCTYPE html>");
-	    out.println("<html>");
-	    out.println("<head>");
-	    out.println("<meta charset=\"utf-8\" />");
-	    out.println("<title>Hello</title>");
-	    out.println("</head>");
-	    out.println("<body>");
-	    out.println("<p>Ceci est une page générée depuis une servlet.</p>");
-	    out.append("Served at: ").append(request.getContextPath());
-	    out.println("<p>Hello world !</p>");
-	    out.println("</body>");
-	    out.println("</html>");
+		this.getServletContext().getRequestDispatcher( "/WEB-INF/index.jsp" ).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
