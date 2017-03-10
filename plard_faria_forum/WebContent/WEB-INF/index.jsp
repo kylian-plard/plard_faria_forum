@@ -1,13 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Forum Plard Faria</title>
-	</head>
-	<body>
+
 		<h1>Bienvenu ${u.prenom} ${u.nom}</h1>
-		<h1>${ msg }</h1>
+		<c:choose>
+			<c:when test="${ error }"><h2>Vous devez remplir tout les champs !</h2></c:when>
+			<c:otherwise><h2>${ msg }</h2></c:otherwise>
+		</c:choose>
 		<form action="" method="POST">
 			<label>Identifiant</label>
 			<input type="text" name="id"/>
@@ -15,9 +11,7 @@
 			<input type="password" name="mdp"/>
 			<input type="submit"/>
 		</form>
-		<p>
-			${ !empty param.id ? param.id : '' } &nbsp; ${ !empty param.mdp ? param.mdp : '' }
-		</p>${date}</p>
-		<p>
+		<p>${ !empty param.id ? param.id : '' } &nbsp; ${ !empty param.mdp ? param.mdp : '' }</p>
+		<p>${date}</p>
 	</body>
 </html>
