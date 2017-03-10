@@ -38,8 +38,7 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User u=new User();
-		u.setNom("Nom");
-		u.setPrenom("Prénom");
+		u.setIdentifiant("zarclack");
 
         /* Récupération de la date courante */
         LocalDateTime dt=LocalDateTime.now();
@@ -64,7 +63,7 @@ public class Index extends HttpServlet {
 		FormConnexion form=new FormConnexion();
 		String msg="Vous devez renseigner tout les champs !";
 		boolean error=true;
-		if(form.connect(request)) {
+		if(form.connect(request)==null) {
 			msg="OK";
 			error=false;
 		}

@@ -6,11 +6,15 @@ public final class FormConnexion {
 	private static final String CHAMP_ID	="id";
 	private static final String CHAMP_MDP	="mdp";
 
-	public boolean connect(HttpServletRequest request) {
+	public User connect(HttpServletRequest request) {
 		String id=getValeurChamp(request, CHAMP_ID);
 		String mdp=getValeurChamp(request, CHAMP_MDP);
-	    if(id==null || mdp==null) return false;
-	    else return true;
+	    if(id==null || mdp==null) return null;
+	    else {
+	    	User u=new User();
+	    	u.setIdentifiant(id);
+	    	return u;
+	    }
 	}
 
 	// Méthode utilitaire qui retourne null si un champ est vide, et son contenu sinon

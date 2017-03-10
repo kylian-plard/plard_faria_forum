@@ -2,8 +2,7 @@ package com.plard_faria_forum.modele;
 
 public class User {
 	private int id;
-	private String prenom;
-	private String nom;
+	private String identifiant;
 
 	public User() {}
 
@@ -11,19 +10,11 @@ public class User {
 		return id;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getIdentifiant() {
+		return identifiant;
 	}
 
-	public String getNom() {
-		return nom;
-	}
-
-	public void setPrenom(String p) {
-		prenom=p;
-	}
-
-	public void setNom(String n) {
-		nom=n;
+	public void setIdentifiant(String p) {
+		identifiant=p;
 	}
 }
