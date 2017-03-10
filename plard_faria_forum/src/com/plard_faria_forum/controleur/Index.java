@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class HelloWorld
  */
 
-public class HelloWorld extends HttpServlet {
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloWorld() {
+    public Index() {
         super();
         // TODO Auto-generated constructor stub
     }
