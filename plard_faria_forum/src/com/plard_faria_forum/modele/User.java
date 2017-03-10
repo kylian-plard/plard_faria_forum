@@ -5,7 +5,7 @@ public class User {
 	private String prenom;
 	private String nom;
 
-	User() {}
+	public User() {}
 
 	public int getId() {
 		return id;
