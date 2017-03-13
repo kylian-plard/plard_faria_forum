@@ -9,15 +9,19 @@ public final class FormConnexion {
 	public User connect(HttpServletRequest request) {
 		String id=getValeurChamp(request, CHAMP_ID);
 		String mdp=getValeurChamp(request, CHAMP_MDP);
-	    if(id==null || mdp==null) return null;
-	    else {
-	    	if(1==1) { // Tester connexion BDD pour récupérer user
-		    	User u=new User();
-		    	u.setIdentifiant(id);
-		    	return u;
-	    	}
-	    	else return null;
-	    }
+    	if(1==1) { // Tester connexion BDD pour récupérer user
+	    	User u=new User();
+	    	u.setIdentifiant(id);
+	    	return u;
+    	}
+    	else return null;
+	}
+
+	public boolean checkData(HttpServletRequest request) {
+		String id=getValeurChamp(request, CHAMP_ID);
+		String mdp=getValeurChamp(request, CHAMP_MDP);
+	    if(id==null || mdp==null) return false;
+	    else return true;
 	}
 
 	// Méthode utilitaire qui retourne null si un champ est vide, et son contenu sinon

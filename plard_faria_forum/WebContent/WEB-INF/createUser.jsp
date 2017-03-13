@@ -1,6 +1,6 @@
-<div id="menu">
+<nav id="menu">
     <p><a href="<c:url value="/hello"/>">Connexion</a></p>
-</div>
+</nav>
 <h1>Créer un nouveau compte</h1>
 <c:if test="${ error }"><h2 class="error">Vous devez remplir tous les champs !</h2></c:if>
 <form action="" method="POST">

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class Deconnexion
  */
 public class Deconnexion extends HttpServlet {
-    public static final String URL_REDIRECTION="/hello";
+    public static final String URL_REDIRECTION="hello";
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Récupération et destruction de la session en cours

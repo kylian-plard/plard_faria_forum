@@ -23,9 +23,11 @@ public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String ATT_ERROR="error";
 	public static final String ATT_MESSAGE="msg";
-	public static final String ATT_DATE	="date";
-	public static final String ATT_SESSION_USER	="user";
-	public static final String VUE		="/WEB-INF/index.jsp";
+	public static final String ATT_DATE="date";
+	public static final String ATT_SESSION_USER="user";
+	public static final String ATT_SESSION_CONNECT="isConnected";
+	public static final String VUE="/WEB-INF/index.jsp";
+	public static final String ACCUEIL="/WEB-INF/accueil.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -61,24 +63,30 @@ public class Index extends HttpServlet {
         HttpSession session = request.getSession();
 
 		FormConnexion form=new FormConnexion();
-		String msg="Vous devez renseigner tout les champs !";
-		boolean error=true;
-		User u=form.connect(request);
-		if(u!=null) {
-			msg="OK";
-			error=false;
-
-			u.setIdentifiant("stral");
-	        /**
-	         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-	         * Utilisateur à la session, sinon suppression du bean de la session.
-	         */
-	        session.setAttribute(ATT_SESSION_USER, u);
+		if(form.checkData(request)) { // Si les champs sont remplis
+			User u=form.connect(request);
+			if(u!=null) { // Si l'uilisateur existe
+				u.setIdentifiant("stral");
+				/**
+				 * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
+				 * Utilisateur à la session, sinon suppression du bean de la session.
+				 */
+				session.setAttribute(ATT_SESSION_USER, u);
+				session.setAttribute(ATT_SESSION_CONNECT, true);
+				this.getServletContext().getRequestDispatcher(ACCUEIL).forward(request, response);
+			}
+			else { // Si l'utilisateur n'existe pas
+				session.setAttribute(ATT_SESSION_USER, null);
+				session.setAttribute(ATT_SESSION_CONNECT, null);
+				request.setAttribute(ATT_MESSAGE, "Mauvais identifiant ou mot de passe !");
+				request.setAttribute(ATT_ERROR, true);
+				doGet(request, response);
+			}
 		}
-		else session.setAttribute(ATT_SESSION_USER, null);
-
-		request.setAttribute(ATT_MESSAGE, msg);
-		request.setAttribute(ATT_ERROR, error);
-		doGet(request, response);
+		else { // Si les champs ne sont pas remplis
+			request.setAttribute(ATT_MESSAGE, "Vous devez renseigner tout les champs !");
+			request.setAttribute(ATT_ERROR, true);
+			doGet(request, response);
+		}
 	}
 }
