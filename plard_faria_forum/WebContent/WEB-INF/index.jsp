@@ -1,9 +1,9 @@
 <div id="menu">
     <p><a href="<c:url value="/createUser"/>">Créer un compte</a></p>
 </div>
-<h1>Bienvenu ${u.prenom} ${u.nom}</h1>
+<h1>Bienvenue ${u.prenom} ${u.nom}</h1>
 <c:choose>
-	<c:when test="${ error }"><h2 class="error">Vous devez remplir tout les champs !</h2></c:when>
+	<c:when test="${ error }"><h2 class="error">Vous devez remplir tous les champs !</h2></c:when>
 	<c:otherwise><h2 class="success">${ msg }</h2></c:otherwise>
 </c:choose>
 <form action="" method="POST">
