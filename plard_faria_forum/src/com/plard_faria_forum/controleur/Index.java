@@ -20,11 +20,11 @@ import com.plard_faria_forum.modele.User;
 
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String ATT_ERROR="error";
-	public static final String ATT_MESSAGE="msg";
-    public static final String ATT_BEAN	="u";
+	public static final String ATT_ERROR = "error";
+	public static final String ATT_MESSAGE = "msg";
+    public static final String ATT_BEAN	= "u";
     public static final String ATT_DATE	="date";
-    public static final String VUE		="/WEB-INF/index.jsp";
+    public static final String VUE = "/WEB-INF/index.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
