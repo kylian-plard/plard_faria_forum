@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.plard_faria_forum.modele.FormConnexion;
 import com.plard_faria_forum.modele.User;
@@ -22,9 +23,9 @@ public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String ATT_ERROR="error";
 	public static final String ATT_MESSAGE="msg";
-    public static final String ATT_BEAN	="u";
-    public static final String ATT_DATE	="date";
-    public static final String VUE		="/WEB-INF/index.jsp";
+	public static final String ATT_DATE	="date";
+	public static final String ATT_SESSION_USER	="user";
+	public static final String VUE		="/WEB-INF/index.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,9 +38,6 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User u=new User();
-		u.setIdentifiant("zarclack");
-
         /* Récupération de la date courante */
         LocalDateTime dt=LocalDateTime.now();
 
@@ -47,7 +45,6 @@ public class Index extends HttpServlet {
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String date = dt.format(formatter).toString();
 
-        request.setAttribute(ATT_BEAN, u);
         request.setAttribute(ATT_DATE, date);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
@@ -60,13 +57,25 @@ public class Index extends HttpServlet {
 		String mdp=request.getParameter("mdp");
 		System.out.println(id+' '+mdp);
 
+		// Récupération de la session depuis la requête
+        HttpSession session = request.getSession();
+
 		FormConnexion form=new FormConnexion();
 		String msg="Vous devez renseigner tout les champs !";
 		boolean error=true;
-		if(form.connect(request)==null) {
+		User u=form.connect(request);
+		if(u!=null) {
 			msg="OK";
 			error=false;
+
+			u.setIdentifiant("stral");
+	        /**
+	         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
+	         * Utilisateur à la session, sinon suppression du bean de la session.
+	         */
+	        session.setAttribute(ATT_SESSION_USER, u);
 		}
+		else session.setAttribute(ATT_SESSION_USER, null);
 
 		request.setAttribute(ATT_MESSAGE, msg);
 		request.setAttribute(ATT_ERROR, error);
