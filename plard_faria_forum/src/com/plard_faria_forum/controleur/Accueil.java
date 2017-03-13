@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String ATT_SESSION_CONNECT="user";
-	public static final String INDEX="/WEB-INF/index.jsp";
+	public static final String INDEX="/hello";
 	public static final String VUE="/WEB-INF/accueil.jsp";
 
     /**
