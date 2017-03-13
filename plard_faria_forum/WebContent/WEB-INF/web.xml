@@ -27,6 +27,11 @@
     <servlet-name>CreateUser</servlet-name>
     <servlet-class>com.plard_faria_forum.controleur.CreateUser</servlet-class>
   </servlet>
+  <servlet>
+    <display-name>Deconnexion</display-name>
+    <servlet-name>Deconnexion</servlet-name>
+    <servlet-class>com.plard_faria_forum.controleur.Deconnexion</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Index</servlet-name>
@@ -35,5 +40,9 @@
   <servlet-mapping>
     <servlet-name>CreateUser</servlet-name>
     <url-pattern>/createUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Deconnexion</servlet-name>
+    <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
 </web-app>

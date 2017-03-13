@@ -11,9 +11,12 @@ public final class FormConnexion {
 		String mdp=getValeurChamp(request, CHAMP_MDP);
 	    if(id==null || mdp==null) return null;
 	    else {
-	    	User u=new User();
-	    	u.setIdentifiant(id);
-	    	return u;
+	    	if(1==1) { // Tester connexion BDD pour récupérer user
+		    	User u=new User();
+		    	u.setIdentifiant(id);
+		    	return u;
+	    	}
+	    	else return null;
 	    }
 	}
 
