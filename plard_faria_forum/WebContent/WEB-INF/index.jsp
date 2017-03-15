@@ -1,5 +1,5 @@
 <nav id="menu">
-	<p><a href="<c:url value="/createUser"/>">Créer un compte</a></p>
+	<p><a href="<c:url value="/inscription"/>">Créer un compte</a></p>
 	<p><a href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 </nav>
 <c:if test="${ error }"><h2 class="error">${ msg }</h2></c:if>

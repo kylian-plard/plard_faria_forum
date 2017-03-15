@@ -7,18 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.plard_faria_forum.modele.DAOFactory;
+import com.plard_faria_forum.modele.DAOException;
+import com.plard_faria_forum.modele.DAOUser;
 import com.plard_faria_forum.modele.FormCreateUser;
 
 /**
  * Servlet implementation class Connexion
  */
-@WebServlet("/Connexion")
 public class CreateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String ATT_ERROR="error";
-	public static final String ATT_MESSAGE="msg";
-	public static final String VUE="/WEB-INF/createUser.jsp";
-	public static final String VUEH="/WEB-INF/index.jsp";
+	public static final String CONF_DAO_FACTORY = "daofactory";
+	public static final String ATT_ERROR = "error";
+	public static final String ATT_MESSAGE = "msg";
+	public static final String VUE = "/WEB-INF/createUser.jsp";
+	public static final String VUEH = "/WEB-INF/index.jsp";
+
+	private DAOUser daoUser;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -26,6 +31,11 @@ public class CreateUser extends HttpServlet {
     public CreateUser() {
         super();
     }
+
+	public void init() throws ServletException {
+		// Récupération d'une instance de notre DAO Utilisateur
+		daoUser=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,15 +52,17 @@ public class CreateUser extends HttpServlet {
 		String mdp=request.getParameter("mdp");
 		System.out.println(id+' '+mdp);
 
-		FormCreateUser form=new FormCreateUser();
-		String msg="Vous devez renseigner tout les champs !";
-		boolean error=true;
-		if(form.connect(request)) {
-			this.getServletContext().getRequestDispatcher(VUEH).forward(request, response);
-		}
-		else {
-			request.setAttribute(ATT_MESSAGE, msg);
-			request.setAttribute(ATT_ERROR, error);
+		FormCreateUser form=new FormCreateUser(daoUser);
+		try {
+			if(form.connect(request)) this.getServletContext().getRequestDispatcher(VUEH).forward(request, response);
+			else {
+				request.setAttribute(ATT_MESSAGE, "Vous devez renseigner tout les champs !");
+				request.setAttribute(ATT_ERROR, true);
+				doGet(request, response);
+			}
+		} catch (DAOException e) {
+			request.setAttribute(ATT_MESSAGE, e.getMessage());
+			request.setAttribute(ATT_ERROR, true);
 			doGet(request, response);
 		}
 	}

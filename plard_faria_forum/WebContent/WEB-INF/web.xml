@@ -16,6 +16,9 @@
       <include-coda>/WEB-INF/footer.jsp</include-coda>
     </jsp-property-group>
   </jsp-config>
+  <listener>
+    <listener-class>com.plard_faria_forum.modele.InitialisationDAOFactory</listener-class>
+  </listener>
   <servlet>
     <display-name>Index</display-name>
     <servlet-name>Index</servlet-name>
@@ -42,7 +45,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CreateUser</servlet-name>
-    <url-pattern>/createUser</url-pattern>
+    <url-pattern>/inscription</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Deconnexion</servlet-name>
