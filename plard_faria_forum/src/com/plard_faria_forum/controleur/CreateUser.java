@@ -21,7 +21,7 @@ public class CreateUser extends HttpServlet {
 	public static final String ATT_ERROR = "error";
 	public static final String ATT_MESSAGE = "msg";
 	public static final String VUE = "/WEB-INF/createUser.jsp";
-	public static final String VUEH = "/WEB-INF/index.jsp";
+	public static final String INDEX = "/hello";
 
 	private DAOUser daoUser;
        
@@ -48,13 +48,9 @@ public class CreateUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id=request.getParameter("id");
-		String mdp=request.getParameter("mdp");
-		System.out.println("inscription "+id+' '+mdp);
-
 		FormCreateUser form=new FormCreateUser(daoUser);
 		try {
-			if(form.connect(request)) this.getServletContext().getRequestDispatcher(VUEH).forward(request, response);
+			if(form.connect(request)) response.sendRedirect(request.getContextPath()+INDEX);
 			else {
 				request.setAttribute(ATT_MESSAGE, "Vous devez renseigner tout les champs !");
 				request.setAttribute(ATT_ERROR, true);

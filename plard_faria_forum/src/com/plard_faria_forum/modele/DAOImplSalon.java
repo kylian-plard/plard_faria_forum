@@ -7,32 +7,35 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class DAOImplUser implements DAOUser {
-	private static final String SQL_SELECT_PAR_ID	= "SELECT id, level FROM User WHERE id = ? AND mdp = MD5(?)";
-	private static final String SQL_INSERT			= "INSERT INTO User(id, mdp, level) VALUES (?, MD5(?), 2)";
+public class DAOImplSalon implements DAOSalon {
+	private static final String SQL_SELECT_ALL	= "SELECT * FROM Salon";
+	private static final String SQL_INSERT		= "INSERT INTO Salon(id, mdp, level) VALUES (null, ?, ?)";
 
 	private DAOFactory daoFactory;
 
-    DAOImplUser(DAOFactory dao) {
+    DAOImplSalon(DAOFactory dao) {
         daoFactory=dao;
     }
 
 	// Implémentation de la méthode trouver() définie dans l'interface UtilisateurDao
-	public User trouver(String id, String mdp) throws DAOException {
+	public ArrayList<Salon> trouver_all() throws DAOException {
 		Connection connexion=null;
 		PreparedStatement preparedStatement=null;
 		ResultSet resultSet=null;
-		User u=null;
+		ArrayList<Salon> liste=new ArrayList<Salon>();
 		try {
 			// Récupération d'une connexion depuis la Factory
 			connexion=daoFactory.getConnection();
-			preparedStatement=initialisationRequetePreparee(connexion, SQL_SELECT_PAR_ID, false, id, mdp);
+			preparedStatement=initialisationRequetePreparee(connexion, SQL_SELECT_ALL, false);
 			resultSet=preparedStatement.executeQuery();
 
 			// Parcours de la ligne de données de l'éventuel ResulSet retourné
-			if(resultSet.next()) u=map(resultSet);
-			return u;
+			while(resultSet.next()) {
+				liste.add(map(resultSet));
+			}
+			return liste;
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
@@ -61,10 +64,11 @@ public class DAOImplUser implements DAOUser {
 	}
 
     // Simple méthode utilitaire permettant de faire la correspondance (le mapping) entre une ligne issue de la table des utilisateurs (un ResultSet) et un bean Utilisateur.
-    private static User map(ResultSet resultSet) throws SQLException {
-        User u=new User();
-        u.setIdentifiant(resultSet.getString("id"));
-        u.setLevel(resultSet.getInt("level"));
-        return u;
+    private static Salon map(ResultSet resultSet) throws SQLException {
+        Salon s=new Salon();
+        s.setId(resultSet.getInt("id"));
+        s.setLibelle(resultSet.getString("libelle"));
+        s.setDescription(resultSet.getString("description"));
+        return s;
     }
 }

@@ -6,15 +6,21 @@ public final class FormConnexion {
 	private static final String CHAMP_ID	="id";
 	private static final String CHAMP_MDP	="mdp";
 
+	private DAOUser daoUser;
+
+	public FormConnexion(DAOUser daoU) {
+		daoUser=daoU;
+    }
+
 	public User connect(HttpServletRequest request) {
 		String id=getValeurChamp(request, CHAMP_ID);
 		String mdp=getValeurChamp(request, CHAMP_MDP);
-    	if(1==1) { // Tester connexion BDD pour récupérer user
-	    	User u=new User();
-	    	u.setIdentifiant(id);
-	    	return u;
+    	try {
+    		return daoUser.trouver(id, mdp); // Renvoi l'utilisateur ou null s'il n'existe pas
+    	} catch(DAOException e) {
+    		e.printStackTrace();
+    		throw new DAOException("Échec de l'inscription pour une raison inconnue !");
     	}
-    	else return null;
 	}
 
 	public boolean checkData(HttpServletRequest request) {

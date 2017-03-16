@@ -2,6 +2,7 @@
 	<p><a href="<c:url value="/inscription"/>">Créer un compte</a></p>
 	<p><a href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 </nav>
+<h1>Connexion</h1>
 <c:if test="${ error }"><h2 class="error">${ msg }</h2></c:if>
 <form action="" method="POST">
 	<label>Identifiant</label>

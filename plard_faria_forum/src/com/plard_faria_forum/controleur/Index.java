@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.plard_faria_forum.modele.DAOFactory;
+import com.plard_faria_forum.modele.DAOUser;
 import com.plard_faria_forum.modele.FormConnexion;
 import com.plard_faria_forum.modele.User;
 
@@ -21,13 +23,16 @@ import com.plard_faria_forum.modele.User;
 
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_ERROR = "error";
 	public static final String ATT_MESSAGE = "msg";
 	public static final String ATT_DATE	= "date";
 	public static final String ATT_SESSION_USER	= "user";
 	public static final String ATT_SESSION_CONNECT = "isConnected";
 	public static final String VUE = "/WEB-INF/index.jsp";
-	public static final String ACCUEIL = "/WEB-INF/accueil.jsp";
+	public static final String ACCUEIL = "/accueil";
+
+	private DAOUser daoUser;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,6 +40,11 @@ public class Index extends HttpServlet {
     public Index() {
         super();
     }
+
+    public void init() throws ServletException {
+		// Récupération d'une instance de notre DAO Utilisateur
+		daoUser=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +55,7 @@ public class Index extends HttpServlet {
 
         /* Conversion de la date en String selon le format défini */
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String date = dt.format(formatter).toString();
+        String date=dt.format(formatter).toString();
 
         request.setAttribute(ATT_DATE, date);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
@@ -55,25 +65,17 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id=request.getParameter("id");
-		String mdp=request.getParameter("mdp");
-		System.out.println("hello "+id+' '+mdp);
-
 		// Récupération de la session depuis la requête
         HttpSession session = request.getSession();
 
-		FormConnexion form=new FormConnexion();
+		FormConnexion form=new FormConnexion(daoUser);
 		if(form.checkData(request)) { // Si les champs sont remplis
 			User u=form.connect(request);
 			if(u!=null) { // Si l'uilisateur existe
-				u.setIdentifiant("stral");
-				/**
-				 * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-				 * Utilisateur à la session, sinon suppression du bean de la session.
-				 */
+				// Si aucune erreur de validation n'a eu lieu, alors ajout du bean Utilisateur à la session, sinon suppression du bean de la session.
 				session.setAttribute(ATT_SESSION_USER, u);
 				session.setAttribute(ATT_SESSION_CONNECT, true);
-				this.getServletContext().getRequestDispatcher(ACCUEIL).forward(request, response);
+				response.sendRedirect(request.getContextPath()+ACCUEIL);
 			}
 			else { // Si l'utilisateur n'existe pas
 				session.setAttribute(ATT_SESSION_USER, null);
