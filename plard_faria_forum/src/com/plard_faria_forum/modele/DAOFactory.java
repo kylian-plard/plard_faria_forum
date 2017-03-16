@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DAOFactory {
-	private static final String FICHIER_PROPERTIES       = "/com/plard_faria_forum/model/dao.properties";
+	private static final String FICHIER_PROPERTIES       = "/com/plard_faria_forum/modele/dao.properties";
 	private static final String PROPERTY_URL             = "url";
 	private static final String PROPERTY_DRIVER          = "driver";
 	private static final String PROPERTY_NOM_UTILISATEUR = "user";
@@ -26,7 +26,7 @@ public class DAOFactory {
 
 	// Méthode chargée de récupérer les informations de connexion à la base de données, charger le driver JDBC et retourner une instance de la Factory
 	public static DAOFactory getInstance() throws DAOConfigurationException {
-		Properties properties = new Properties();
+		Properties properties=new Properties();
 		String url;
 		String driver;
 		String nomUtilisateur;
@@ -42,6 +42,7 @@ public class DAOFactory {
 			driver=properties.getProperty(PROPERTY_DRIVER);
 			nomUtilisateur=properties.getProperty(PROPERTY_NOM_UTILISATEUR);
 			motDePasse=properties.getProperty(PROPERTY_MOT_DE_PASSE);
+			System.out.println(url+" "+nomUtilisateur+" "+motDePasse);
 		} catch (IOException e) {
 			throw new DAOConfigurationException("Impossible de charger le fichier properties "+FICHIER_PROPERTIES, e);
 		}
@@ -51,8 +52,7 @@ public class DAOFactory {
 		} catch (ClassNotFoundException e) {
 			throw new DAOConfigurationException("Le driver est introuvable dans le classpath.", e);
 		}
-		DAOFactory instance=new DAOFactory(url, nomUtilisateur, motDePasse);
-		return instance;
+		return new DAOFactory(url, nomUtilisateur, motDePasse);
 	}
 
 	// Méthode chargée de fournir une connexion à la base de données

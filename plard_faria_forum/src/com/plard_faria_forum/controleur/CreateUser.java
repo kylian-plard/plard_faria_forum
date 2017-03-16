@@ -50,7 +50,7 @@ public class CreateUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("id");
 		String mdp=request.getParameter("mdp");
-		System.out.println(id+' '+mdp);
+		System.out.println("inscription "+id+' '+mdp);
 
 		FormCreateUser form=new FormCreateUser(daoUser);
 		try {

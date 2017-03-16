@@ -1,6 +1,5 @@
 package com.plard_faria_forum.modele;
 
-
 import static com.plard_faria_forum.modele.DAOUtilitaire.fermeturesSilencieuses;
 import static com.plard_faria_forum.modele.DAOUtilitaire.initialisationRequetePreparee;
 
@@ -47,12 +46,12 @@ public class DAOImplUser implements DAOUser {
 		PreparedStatement preparedStatement=null;
 		ResultSet valeursAutoGenerees=null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
+			// Récupération d'une connexion depuis la Factory
 			connexion=daoFactory.getConnection();
 			preparedStatement=initialisationRequetePreparee(connexion, SQL_INSERT, true, i, m);
 			int statut=preparedStatement.executeUpdate();
-	
-			/* Analyse du statut retourné par la requête d'insertion */
+
+			// Analyse du statut retourné par la requête d'insertion
 			if (statut==0) throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -61,8 +60,7 @@ public class DAOImplUser implements DAOUser {
 		}
 	}
 
-    // Simple méthode utilitaire permettant de faire la correspondance (le mapping) entre une ligne issue de la table des utilisateurs
-    // (un ResultSet) et un bean Utilisateur.
+    // Simple méthode utilitaire permettant de faire la correspondance (le mapping) entre une ligne issue de la table des utilisateurs (un ResultSet) et un bean Utilisateur.
     private static User map(ResultSet resultSet) throws SQLException {
         User u=new User();
         u.setIdentifiant(resultSet.getString("id"));

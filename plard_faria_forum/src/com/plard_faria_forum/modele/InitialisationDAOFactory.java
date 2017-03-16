@@ -11,7 +11,7 @@ public class InitialisationDAOFactory implements ServletContextListener {
 	
 	public void contextInitialized(ServletContextEvent event) {
 		// Récupération du ServletContext lors du chargement de l'application
-		ServletContext servletContext = event.getServletContext();
+		ServletContext servletContext=event.getServletContext();
 		
 		// Instanciation de notre DAOFactory
 		daoFactory=DAOFactory.getInstance();

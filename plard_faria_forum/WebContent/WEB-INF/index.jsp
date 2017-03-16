@@ -10,5 +10,4 @@
 	<input type="password" name="mdp"/>
 	<input type="submit"/>
 </form>
-<p>${ !empty param.id ? param.id : '' } &nbsp; ${ !empty param.mdp ? param.mdp : '' }</p>
 <p>${date}</p>

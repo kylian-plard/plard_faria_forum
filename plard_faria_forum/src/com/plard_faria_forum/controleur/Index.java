@@ -57,7 +57,7 @@ public class Index extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("id");
 		String mdp=request.getParameter("mdp");
-		System.out.println(id+' '+mdp);
+		System.out.println("hello "+id+' '+mdp);
 
 		// Récupération de la session depuis la requête
         HttpSession session = request.getSession();
