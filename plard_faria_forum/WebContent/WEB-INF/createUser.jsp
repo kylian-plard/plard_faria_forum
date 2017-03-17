@@ -1,7 +1,7 @@
 <nav id="menu">
     <p><a href="<c:url value="/hello"/>">Connexion</a></p>
 </nav>
-<h1>Créer un nouveau compte</h1>
+<h1>CrÃ©er un nouveau compte</h1>
 <c:if test="${ error }"><h2 class="error">Vous devez remplir tous les champs !</h2></c:if>
 <form action="" method="POST">
 	<label>Identifiant</label>

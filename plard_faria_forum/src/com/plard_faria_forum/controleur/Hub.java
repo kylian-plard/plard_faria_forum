@@ -3,6 +3,7 @@ package com.plard_faria_forum.controleur;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class Hub extends HttpServlet {
 	public static final String VUE = "/WEB-INF/salon.jsp";
 
 	private DAOSujet daoSujet;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,6 +44,9 @@ public class Hub extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
 		/* Récupération de la session depuis la requête */
 		HttpSession session=request.getSession();
 		
@@ -50,6 +54,7 @@ public class Hub extends HttpServlet {
 		if(session.getAttribute(ATT_SESSION_CONNECT)==null) response.sendRedirect(request.getContextPath()+INDEX);
 		else {
 			// Récupération et envoi à la vue de la liste des salons
+			request.setAttribute("libelle", request.getParameter(PARAM_IDSALON));
 			ArrayList<Sujet> liste=daoSujet.trouver(Integer.parseInt(request.getParameter(PARAM_IDSALON)));
 			request.setAttribute(ATT_SUJETS, liste);
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
@@ -60,6 +65,8 @@ public class Hub extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 		doGet(request, response);
 	}
 

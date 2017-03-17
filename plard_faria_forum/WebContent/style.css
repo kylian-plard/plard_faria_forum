@@ -1,3 +1,20 @@
+#menu {
+	background: rgb(125, 222, 184) none repeat scroll 0% 0%;
+	position: fixed;
+	width: 100%;
+	margin-top: -55px;
+	margin-left: -8px;
+}
+
+#menu>p {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.welcome {
+	margin-top: 55px;
+}
+
 .error {
 	color: red;
 }
@@ -8,4 +25,24 @@
 
 .primary {
 	color: blue;
+}
+
+.salon, .sujet {
+	border: 2px solid blue;
+	border-radius: 15px;
+	padding: 10px;
+	margin: 10px;
+	background-color: rgb(237, 243, 249);
+}
+
+.message {
+    border: 2px solid orange;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgb(242, 230, 207);
+}
+
+textarea {
+	width: 98%;
 }

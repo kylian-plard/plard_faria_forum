@@ -54,12 +54,11 @@ public class CreateUser extends HttpServlet {
 			else {
 				request.setAttribute(ATT_MESSAGE, "Vous devez renseigner tout les champs !");
 				request.setAttribute(ATT_ERROR, true);
-				doGet(request, response);
 			}
 		} catch (DAOException e) {
 			request.setAttribute(ATT_MESSAGE, e.getMessage());
 			request.setAttribute(ATT_ERROR, true);
-			doGet(request, response);
 		}
+		doGet(request, response);
 	}
 }

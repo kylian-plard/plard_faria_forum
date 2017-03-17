@@ -94,4 +94,8 @@ public class DAOFactory {
 	public DAOSujet getSujetDao() {
 		return new DAOImplSujet(this);
 	}
+
+	public DAOMessage getMessageDao() {
+		return new DAOImplMessage(this);
+	}
 }
