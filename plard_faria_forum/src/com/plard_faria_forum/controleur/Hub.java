@@ -4,40 +4,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.plard_faria_forum.modele.DAOFactory;
-import com.plard_faria_forum.modele.DAOSalon;
-import com.plard_faria_forum.modele.FormConnexion;
-import com.plard_faria_forum.modele.Salon;
+import com.plard_faria_forum.modele.DAOSujet;
+import com.plard_faria_forum.modele.Sujet;
 
 /**
- * Servlet implementation class Accueil
+ * Servlet implementation class Hub
  */
-public class Accueil extends HttpServlet {
+public class Hub extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_SESSION_CONNECT="user";
-	public static final String ATT_SALONS="salons";
-	public static final String INDEX="/hello";
-	public static final String VUE="/WEB-INF/accueil.jsp";
+	public static final String ATT_SESSION_CONNECT = "user";
+	public static final String ATT_SUJETS = "sujets";
+	public static final String PARAM_IDSALON = "id";
+	public static final String INDEX = "/hello";
+	public static final String VUE = "/WEB-INF/salon.jsp";
 
-	private DAOSalon daoSalon;
-
+	private DAOSujet daoSujet;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Accueil() {
+    public Hub() {
         super();
     }
 
     public void init() throws ServletException {
 		// Récupération d'une instance de notre DAO Utilisateur
-		daoSalon=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getSalonDao();
+		daoSujet=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getSujetDao();
 	}
 
 	/**
@@ -51,8 +50,8 @@ public class Accueil extends HttpServlet {
 		if(session.getAttribute(ATT_SESSION_CONNECT)==null) response.sendRedirect(request.getContextPath()+INDEX);
 		else {
 			// Récupération et envoi à la vue de la liste des salons
-			ArrayList<Salon> liste=daoSalon.trouver_all();
-			request.setAttribute(ATT_SALONS, liste);
+			ArrayList<Sujet> liste=daoSujet.trouver(Integer.parseInt(request.getParameter(PARAM_IDSALON)));
+			request.setAttribute(ATT_SUJETS, liste);
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		}
 	}

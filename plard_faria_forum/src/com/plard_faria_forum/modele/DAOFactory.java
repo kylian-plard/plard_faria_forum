@@ -90,4 +90,8 @@ public class DAOFactory {
 	public DAOSalon getSalonDao() {
 		return new DAOImplSalon(this);
 	}
+
+	public DAOSujet getSujetDao() {
+		return new DAOImplSujet(this);
+	}
 }

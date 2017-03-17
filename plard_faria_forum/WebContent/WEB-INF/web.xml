@@ -39,6 +39,11 @@
     <servlet-name>Accueil</servlet-name>
     <servlet-class>com.plard_faria_forum.controleur.Accueil</servlet-class>
   </servlet>
+  <servlet>
+    <display-name>Hub</display-name>
+    <servlet-name>Hub</servlet-name>
+    <servlet-class>com.plard_faria_forum.controleur.Hub</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Index</servlet-name>
     <url-pattern>/hello</url-pattern>
@@ -54,5 +59,9 @@
   <servlet-mapping>
     <servlet-name>Accueil</servlet-name>
     <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Hub</servlet-name>
+    <url-pattern>/salon</url-pattern>
   </servlet-mapping>
 </web-app>

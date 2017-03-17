@@ -54,7 +54,7 @@ public class Index extends HttpServlet {
         LocalDateTime dt=LocalDateTime.now();
 
         /* Conversion de la date en String selon le format défini */
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String date=dt.format(formatter).toString();
 
         request.setAttribute(ATT_DATE, date);
