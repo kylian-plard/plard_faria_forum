@@ -6,7 +6,6 @@ public class Message {
 	private String date;
 	private String auteur;
 	private int sujet;
-	private int reponse;
 
 	public int getId() {
 		return id;
@@ -28,10 +27,6 @@ public class Message {
 		return sujet;
 	}
 
-	public int getReponse() {
-		return reponse;
-	}
-
 	public void setId(int i) {
 		id = i;
 	}
@@ -50,9 +45,5 @@ public class Message {
 
 	public void setSujet(int s) {
 		sujet = s;
-	}
-
-	public void setReponse(int r) {
-		reponse = r;
 	}
 }

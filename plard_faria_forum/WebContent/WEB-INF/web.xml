@@ -16,9 +16,9 @@
       <include-coda>/WEB-INF/footer.jsp</include-coda>
     </jsp-property-group>
     <jsp-property-group>
-	  <description>Configue de l'encodage des pages JSP</description>
-	  <url-pattern>*.jsp</url-pattern>
-	  <page-encoding>UTF-8</page-encoding>
+      <description>Configue de l'encodage des pages JSP</description>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
   <listener>
@@ -62,6 +62,16 @@
     <servlet-name>FilMessage</servlet-name>
     <servlet-class>com.plard_faria_forum.controleur.FilMessage</servlet-class>
   </servlet>
+  <servlet>
+    <display-name>Suppresion d'un compte</display-name>
+    <servlet-name>DeleteUser</servlet-name>
+    <servlet-class>com.plard_faria_forum.controleur.DeleteUser</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>Changer les droits d'aministration</display-name>
+    <servlet-name>ChangeLevel</servlet-name>
+    <servlet-class>com.plard_faria_forum.controleur.ChangeLevel</servlet-class>
+  </servlet>
   <filter-mapping>
     <filter-name>encodingfilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -89,5 +99,13 @@
   <servlet-mapping>
     <servlet-name>FilMessage</servlet-name>
     <url-pattern>/sujet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteUser</servlet-name>
+    <url-pattern>/deleteUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeLevel</servlet-name>
+    <url-pattern>/changeLevel</url-pattern>
   </servlet-mapping>
 </web-app>

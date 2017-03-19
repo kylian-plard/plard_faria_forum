@@ -4,6 +4,7 @@
 	width: 100%;
 	margin-top: -55px;
 	margin-left: -8px;
+	z-index: 1;
 }
 
 #menu>p {
@@ -45,4 +46,23 @@
 
 textarea {
 	width: 98%;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.formDelete {
+	position: relative;
+	left: 89%;
+}
+
+.formLevel {
+	position: relative;
+	top: 10px;
+}
+
+.warning {
+	text-align: center;
+	color: red;
 }

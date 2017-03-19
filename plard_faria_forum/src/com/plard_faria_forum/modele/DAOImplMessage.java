@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class DAOImplMessage implements DAOMessage {
 	private static final String SQL_SELECT_PAR_IDSUJET = "SELECT * FROM Message WHERE sujet = ? ORDER BY date";
 	private static final String SQL_INSERT = "INSERT INTO Message(id, msg, date, auteur, sujet) VALUES (null, ?, ?, ?, ?)";
+	private static final String SQL_DELETE = "DELETE FROM Message WHERE id = ?";
 
 	private DAOFactory daoFactory;
 
@@ -55,7 +56,7 @@ public class DAOImplMessage implements DAOMessage {
 			int statut=preparedStatement.executeUpdate();
 
 			// Analyse du statut retourné par la requête d'insertion
-			if(statut==0) throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
+			if(statut==0) throw new DAOException("Échec de la création du message , aucune ligne ajoutée dans la table.");
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
@@ -71,7 +72,25 @@ public class DAOImplMessage implements DAOMessage {
         m.setDate(resultSet.getString("date"));
         m.setAuteur(resultSet.getString("auteur"));
         m.setSujet(resultSet.getInt("sujet"));
-        m.setReponse(resultSet.getInt("reponse"));
         return m;
+    }
+
+    public void sup(int id) throws DAOException{
+    	Connection connexion=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet valeursAutoGenerees=null;
+		try {
+			// Récupération d'une connexion depuis la Factory
+			connexion=daoFactory.getConnection();
+			preparedStatement=initialisationRequetePreparee(connexion, SQL_DELETE, true, id);
+			int statut=preparedStatement.executeUpdate();
+
+			// Analyse du statut retourné par la requête d'insertion
+			if(statut==0) throw new DAOException("Échec de la suppresion du message, aucune ligne supprimée dans la table.");
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(valeursAutoGenerees, preparedStatement, connexion);
+		}
     }
 }

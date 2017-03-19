@@ -1,7 +1,7 @@
 <nav id="menu">
 	<p><a href="<c:url value="/inscription"/>">Créer un compte</a></p>
 </nav>
-<h1>Connexion</h1>
+<h1 class="welcome">Connexion</h1>
 <c:if test="${ error }"><h2 class="error">${ msg }</h2></c:if>
 <form action="" method="POST">
 	<label>Identifiant</label>
@@ -10,4 +10,3 @@
 	<input type="password" name="mdp"/>
 	<input type="submit"/>
 </form>
-<p>${date}</p>

@@ -3,7 +3,6 @@ package com.plard_faria_forum.modele;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -33,9 +32,9 @@ public class DAOFactory {
 		BoneCP connectionPool=null;
 
 		ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
-		InputStream fichierProperties=classLoader.getResourceAsStream( FICHIER_PROPERTIES );
+		InputStream fichierProperties=classLoader.getResourceAsStream(FICHIER_PROPERTIES);
 
-		if (fichierProperties==null) throw new DAOConfigurationException( "Le fichier properties "+FICHIER_PROPERTIES+" est introuvable.");
+		if (fichierProperties==null) throw new DAOConfigurationException("Le fichier properties "+FICHIER_PROPERTIES+" est introuvable.");
 		try {
 			properties.load(fichierProperties);
 			url=properties.getProperty(PROPERTY_URL);

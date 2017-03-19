@@ -1,12 +1,10 @@
 package com.plard_faria_forum.controleur;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +40,6 @@ public class Index extends HttpServlet {
     }
 
     public void init() throws ServletException {
-		// Récupération d'une instance de notre DAO Utilisateur
 		daoUser=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
 	}
 
@@ -50,14 +47,6 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /* Récupération de la date courante */
-        LocalDateTime dt=LocalDateTime.now();
-
-        /* Conversion de la date en String selon le format défini */
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String date=dt.format(formatter).toString();
-
-        request.setAttribute(ATT_DATE, date);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 

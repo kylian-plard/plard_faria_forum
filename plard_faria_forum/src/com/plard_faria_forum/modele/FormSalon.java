@@ -1,42 +1,28 @@
 package com.plard_faria_forum.modele;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-public final class FormMsg {
+public final class FormSalon {
 	public static final String ATT_SESSION_USER	= "user";
 	private static final String CHAMP_ACTION = "action";
+	private static final String CHAMP_LIBELLE = "titre";
 	private static final String CHAMP_MSG = "msg";
-	private static final String CHAMP_ID = "id";
-	private static final String CHAMP_IDMESSAGE = "idMessage";
+	private static final String CHAMP_IDSALON = "idSalon";
 
-	private DAOMessage daoMessage;
+	private DAOSalon daoSalon;
 
-	public FormMsg(DAOMessage daoM) {
-		daoMessage=daoM;
+	public FormSalon(DAOSalon daoS) {
+		daoSalon=daoS;
     }
 
 	public boolean connect(HttpServletRequest request) throws DAOException{
 		if(Integer.parseInt(request.getParameter(CHAMP_ACTION))==0) {
+			String libelle=getValeurChamp(request, CHAMP_LIBELLE);
 			String msg=getValeurChamp(request, CHAMP_MSG);
-			int sujet=Integer.parseInt(request.getParameter(CHAMP_ID));
-		    if(msg==null) return false;
+		    if(libelle==null || msg==null) return false;
 		    else {
 		    	try {
-		    		/* Récupération de la date courante */
-		            LocalDateTime dt=LocalDateTime.now();
-	
-		            /* Conversion de la date en String selon le format défini */
-		            DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		            String date=dt.format(formatter).toString();
-	
-		            // Récupération de la session depuis la requête
-		            HttpSession session=request.getSession();
-	
-		    		daoMessage.creer(msg, date, ((User)session.getAttribute(ATT_SESSION_USER)).getIdentifiant(), sujet);
+		    		daoSalon.creer(libelle, msg);
 		    		return true;
 		    	} catch(DAOException e) {
 		    		e.printStackTrace();
@@ -46,7 +32,7 @@ public final class FormMsg {
 		}
 		else {
 			try {
-				daoMessage.sup(Integer.parseInt(request.getParameter(CHAMP_IDMESSAGE)));
+				daoSalon.sup(Integer.parseInt(request.getParameter(CHAMP_IDSALON)));
 				return true;
 			} catch(DAOException e) {
 				e.printStackTrace();

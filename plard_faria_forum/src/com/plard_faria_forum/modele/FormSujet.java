@@ -6,24 +6,28 @@ import java.time.format.DateTimeFormatter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public final class FormMsg {
+public final class FormSujet {
 	public static final String ATT_SESSION_USER	= "user";
 	private static final String CHAMP_ACTION = "action";
+	private static final String CHAMP_LIBELLE = "titre";
 	private static final String CHAMP_MSG = "msg";
 	private static final String CHAMP_ID = "id";
-	private static final String CHAMP_IDMESSAGE = "idMessage";
+	private static final String CHAMP_IDSUJET = "idSujet";
 
+	private DAOSujet daoSujet;
 	private DAOMessage daoMessage;
 
-	public FormMsg(DAOMessage daoM) {
+	public FormSujet(DAOSujet daoS, DAOMessage daoM) {
+		daoSujet=daoS;
 		daoMessage=daoM;
     }
 
 	public boolean connect(HttpServletRequest request) throws DAOException{
 		if(Integer.parseInt(request.getParameter(CHAMP_ACTION))==0) {
+			String libelle=getValeurChamp(request, CHAMP_LIBELLE);
 			String msg=getValeurChamp(request, CHAMP_MSG);
-			int sujet=Integer.parseInt(request.getParameter(CHAMP_ID));
-		    if(msg==null) return false;
+			int salon=Integer.parseInt(request.getParameter(CHAMP_ID));
+		    if(libelle==null || msg==null) return false;
 		    else {
 		    	try {
 		    		/* Récupération de la date courante */
@@ -35,24 +39,29 @@ public final class FormMsg {
 	
 		            // Récupération de la session depuis la requête
 		            HttpSession session=request.getSession();
+		            String auteur=((User)session.getAttribute(ATT_SESSION_USER)).getIdentifiant();
 	
-		    		daoMessage.creer(msg, date, ((User)session.getAttribute(ATT_SESSION_USER)).getIdentifiant(), sujet);
-		    		return true;
+		    		int sujet=daoSujet.creer(libelle, date, auteur, salon);
+		    		if(sujet!=-1) {
+		    			daoMessage.creer(msg, date, auteur, sujet);
+		    			return true;
+		    		}
+		    		else return false;
 		    	} catch(DAOException e) {
 		    		e.printStackTrace();
 		    		throw new DAOException("Échec de la réponse pour une raison inconnue !");
 		    	}
 		    }
 		}
-		else {
-			try {
-				daoMessage.sup(Integer.parseInt(request.getParameter(CHAMP_IDMESSAGE)));
+	    else {
+	    	try {
+				daoSujet.sup(Integer.parseInt(request.getParameter(CHAMP_IDSUJET)));
 				return true;
 			} catch(DAOException e) {
 				e.printStackTrace();
 	    		throw new DAOException("Échec de la réponse pour une raison inconnue !");
 			}
-		}
+	    }
 	}
 
 	// Méthode utilitaire qui retourne null si un champ est vide, et son contenu sinon

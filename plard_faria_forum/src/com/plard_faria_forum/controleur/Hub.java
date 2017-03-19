@@ -3,15 +3,17 @@ package com.plard_faria_forum.controleur;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.plard_faria_forum.modele.DAOException;
 import com.plard_faria_forum.modele.DAOFactory;
+import com.plard_faria_forum.modele.DAOMessage;
 import com.plard_faria_forum.modele.DAOSujet;
+import com.plard_faria_forum.modele.FormSujet;
 import com.plard_faria_forum.modele.Sujet;
 
 /**
@@ -27,6 +29,7 @@ public class Hub extends HttpServlet {
 	public static final String VUE = "/WEB-INF/salon.jsp";
 
 	private DAOSujet daoSujet;
+	private DAOMessage daoMessage;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,8 +39,8 @@ public class Hub extends HttpServlet {
     }
 
     public void init() throws ServletException {
-		// Récupération d'une instance de notre DAO Utilisateur
 		daoSujet=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getSujetDao();
+		daoMessage=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
 	}
 
 	/**
@@ -66,8 +69,15 @@ public class Hub extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		
+		FormSujet form=new FormSujet(daoSujet, daoMessage);
+		try {
+			form.connect(request);
+		} catch (DAOException e) {
+			System.out.println("Erreur validation du formulaire d'ajout de sujet");
+			e.printStackTrace();
+		}
 		doGet(request, response);
 	}
-
 }

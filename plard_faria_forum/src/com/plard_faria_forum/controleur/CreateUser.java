@@ -2,7 +2,6 @@ package com.plard_faria_forum.controleur;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +32,6 @@ public class CreateUser extends HttpServlet {
     }
 
 	public void init() throws ServletException {
-		// Récupération d'une instance de notre DAO Utilisateur
 		daoUser=((DAOFactory)getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
 	}
 
@@ -54,11 +52,11 @@ public class CreateUser extends HttpServlet {
 			else {
 				request.setAttribute(ATT_MESSAGE, "Vous devez renseigner tout les champs !");
 				request.setAttribute(ATT_ERROR, true);
+				doGet(request, response);
 			}
 		} catch (DAOException e) {
 			request.setAttribute(ATT_MESSAGE, e.getMessage());
 			request.setAttribute(ATT_ERROR, true);
 		}
-		doGet(request, response);
 	}
 }
