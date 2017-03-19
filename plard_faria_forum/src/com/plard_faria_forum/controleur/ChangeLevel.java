@@ -14,8 +14,6 @@ import com.plard_faria_forum.modele.DAOException;
 import com.plard_faria_forum.modele.DAOFactory;
 import com.plard_faria_forum.modele.DAOUser;
 import com.plard_faria_forum.modele.FormChangeLevel;
-import com.plard_faria_forum.modele.FormSalon;
-import com.plard_faria_forum.modele.Salon;
 import com.plard_faria_forum.modele.User;
 
 /**

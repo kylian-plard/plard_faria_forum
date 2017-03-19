@@ -1,10 +1,8 @@
 package com.plard_faria_forum.controleur;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.plard_faria_forum.modele.DAOException;
 import com.plard_faria_forum.modele.DAOFactory;
-import com.plard_faria_forum.modele.DAOSalon;
 import com.plard_faria_forum.modele.DAOUser;
-import com.plard_faria_forum.modele.Salon;
 import com.plard_faria_forum.modele.User;
 
 /**

@@ -1,8 +1,6 @@
 package com.plard_faria_forum.controleur;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
