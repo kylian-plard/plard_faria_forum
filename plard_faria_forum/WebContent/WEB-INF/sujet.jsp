@@ -19,6 +19,7 @@
 </c:forEach>
 <br>
 <form action="" method="POST">
+	<input type="hidden" name="action" value=0 />
 	<textarea rows="10" name="msg" required></textarea>
 	<input type="submit" value="Répondre">
 </form>
