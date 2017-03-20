@@ -6,7 +6,7 @@
 <h1 class="welcome">Changer les droits d'administration</h1>
 <c:forEach var="user" items="${ users }">
 	<div class="user">
-		<p class="inline-block">${ user.identifiant } - niveau actuelle: ${ user.level==2 ? 'Utilisateur basique' : 'Modérateur' }</p>
+		<p class="inline-block">${ user.identifiant } - niveau actuel: ${ user.level==2 ? 'Utilisateur basique' : 'Modérateur' }</p>
 		<div class="formLevel inline-block">
 			<form action="" method="POST" >
 				<input type="hidden" name="idUser" value="${user.identifiant}" />
