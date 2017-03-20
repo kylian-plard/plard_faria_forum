@@ -1,10 +1,6 @@
 package com.plard_faria_forum.modele;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class FormChangeLevel {
 	public static final String ATT_SESSION_USER	= "user";
