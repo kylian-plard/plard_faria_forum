@@ -1,5 +1,5 @@
 <nav id="menu">
-	<p><a href="<c:url value="/accueil"/>">Retoru à l'accueil</a></p>
+	<p><a href="<c:url value="/accueil"/>">Retour à l'accueil</a></p>
 	<p><a href="<c:url value="/deleteUser"/>">Supprimer le compte</a></p>
 	<p><a href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 </nav>
