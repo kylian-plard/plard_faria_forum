@@ -3,7 +3,7 @@
 	<p><a href="<c:url value="/deleteUser"/>">Supprimer le compte</a></p>
 	<p><a href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 </nav>
-<h1 class="welcome">Bienvenu ${ user.identifiant }</h1>
+<h1 class="welcome">Bienvenue ${ user.identifiant }</h1>
 <h2><c:out value="${ param.libelle }"/></h2>
 <c:forEach var="sujet" items="${ sujets }">
 	<div class="sujet">
@@ -27,5 +27,5 @@
 	<br>
 	<label>Message</label>
 	<textarea rows="10" name="msg" required></textarea>
-	<input type="submit" value="Créer un nouveaux sujet" />
+	<input type="submit" value="Créer un nouveau sujet" />
 </form>

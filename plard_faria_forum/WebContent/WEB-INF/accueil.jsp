@@ -3,7 +3,7 @@
 	<p><a href="<c:url value="/deleteUser"/>">Supprimer le compte</a></p>
 	<p><a href="<c:url value="/deconnexion"/>">Déconnexion</a></p>
 </nav>
-<h1 class="welcome">Bienvenu ${ user.identifiant }</h1>
+<h1 class="welcome">Bienvenue ${ user.identifiant }</h1>
 <c:forEach var="salon" items="${ salons }">
 	<div class="salon">
 		<c:if test="${ user.level==1 || user.level==3 }">
@@ -26,6 +26,6 @@
 		<label>Description</label>
 		<textarea rows="10" name="msg" required></textarea>
 		<input type="hidden" name="action" value=0 />
-		<input type="submit" value="Créer un nouveaux salon" />
+		<input type="submit" value="Créer un nouveau salon" />
 	</form>
 </c:if>
